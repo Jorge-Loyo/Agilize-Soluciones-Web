@@ -1,0 +1,125 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-background: #0f0f11;
+  --color-surface: #1a1a2e;
+  --color-surface-light: #252540;
+  --color-foreground: #f8f9fa;
+  --color-foreground-muted: #a1a1aa;
+  --color-accent: #d4af37;
+  --color-accent-hover: #b8962e;
+  --color-accent-glow: #d4af3733;
+
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-clash-display);
+}
+
+/* ── Base ─────────────────────────────────────── */
+html {
+  background: var(--color-background);
+  color: var(--color-foreground);
+  scroll-behavior: auto;
+}
+
+body {
+  font-family: var(--font-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-background);
+}
+
+/* ── Scrollbar ────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-accent);
+  border-radius: 9999px;
+}
+
+/* ── Lenis ────────────────────────────────────── */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* ── Utilities ────────────────────────────────── */
+.text-gradient {
+  background: linear-gradient(135deg, var(--color-accent) 0%, #f5d76e 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.glow-accent {
+  box-shadow: 0 0 40px var(--color-accent-glow), 0 0 80px var(--color-accent-glow);
+}
+
+/* ── Noise texture overlay ────────────────────── */
+.noise::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+/* ── Accessibility: Reduced Motion ─────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .noise::before {
+    display: none;
+  }
+}
+
+/* ── Focus visible (keyboard navigation) ──────── */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ── Screen reader only ───────────────────────── */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
