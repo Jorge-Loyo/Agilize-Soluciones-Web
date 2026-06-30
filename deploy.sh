@@ -34,6 +34,7 @@ echo ""
 echo "📁 Copying static files to standalone..."
 cp -r .next/static .next/standalone/.next/static
 cp -r public .next/standalone/public
+cp .env.local .next/standalone/.env
 
 # 5. Create logs dir if not exists
 mkdir -p logs
