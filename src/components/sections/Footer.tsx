@@ -80,10 +80,10 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="mailto:contacto@agilizesoluciones.com"
+                  href="mailto:contacto@agilizesoluciones.uk"
                   className="hover:text-accent transition-colors"
                 >
-                  contacto@agilizesoluciones.com
+                  contacto@agilizesoluciones.uk
                 </a>
               </li>
             </ul>

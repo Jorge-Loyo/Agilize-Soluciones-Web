@@ -3,8 +3,8 @@ export default function StructuredData() {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "Agilize Soluciones",
-    url: "https://agilizesoluciones.com",
-    logo: "https://agilizesoluciones.com/icons/icon-512.png",
+    url: "https://agilizesoluciones.uk",
+    logo: "https://agilizesoluciones.uk/icons/icon-512.png",
     description:
       "Desarrollamos soluciones de E-commerce Inteligente y Sistemas ERP a medida para empresas que buscan escalar.",
     founder: {
@@ -17,7 +17,7 @@ export default function StructuredData() {
     ],
     contactPoint: {
       "@type": "ContactPoint",
-      email: "contacto@agilizesoluciones.com",
+      email: "contacto@agilizesoluciones.uk",
       contactType: "sales",
       availableLanguage: ["Spanish"],
     },

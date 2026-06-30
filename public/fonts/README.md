@@ -1,47 +1,19 @@
-# Tipografía - Clash Display
+# Tipografía - Clash Display ✅
 
-## Instrucciones
+Fuente display del proyecto. Cargada localmente con `next/font/local`.
 
-1. Ir a https://www.fontshare.com/fonts/clash-display
-2. Click en "Download" → "Download Font Files"
-3. Del ZIP descargado, extraer los archivos `.woff2` de estos pesos:
-   - `ClashDisplay-Medium.woff2` (500)
-   - `ClashDisplay-Semibold.woff2` (600)
-   - `ClashDisplay-Bold.woff2` (700)
-4. Colocarlos en esta carpeta (`public/fonts/`)
+## Archivos presentes
 
-## Después de colocar los archivos
+- `ClashDisplay-Medium.woff2` → weight 500
+- `ClashDisplay-Semibold.woff2` → weight 600
+- `ClashDisplay-Bold.woff2` → weight 700
 
-En `src/app/layout.tsx`, reemplazar:
+## Fuente
 
-```typescript
-// ACTUAL (Syne como fallback):
-import { Inter, Syne } from "next/font/google";
+Descargada de [Fontshare](https://www.fontshare.com/fonts/clash-display) (licencia libre para uso comercial).
 
-const displayFont = Syne({
-  subsets: ["latin"],
-  variable: "--font-clash-display",
-  display: "swap",
-  weight: ["500", "600", "700", "800"],
-});
-```
+## Uso en el proyecto
 
-Por:
+La variable CSS `--font-clash-display` se aplica vía la clase `font-[family-name:var(--font-clash-display)]` en todos los headings y elementos display.
 
-```typescript
-// DEFINITIVO (Clash Display local):
-import { Inter } from "next/font/google";
-import localFont from "next/font/local";
-
-const displayFont = localFont({
-  src: [
-    { path: "../../public/fonts/ClashDisplay-Medium.woff2", weight: "500", style: "normal" },
-    { path: "../../public/fonts/ClashDisplay-Semibold.woff2", weight: "600", style: "normal" },
-    { path: "../../public/fonts/ClashDisplay-Bold.woff2", weight: "700", style: "normal" },
-  ],
-  variable: "--font-clash-display",
-  display: "swap",
-});
-```
-
-Eso es todo. El resto del código ya referencia `--font-clash-display`.
+Configurada en `src/app/layout.tsx` con `localFont` de `next/font/local`.

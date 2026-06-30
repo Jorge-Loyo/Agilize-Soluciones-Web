@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Inter, Syne } from "next/font/google";
+import { Inter } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { LenisProvider } from "@/components/ui/LenisProvider";
 import CustomCursor from "@/components/ui/CustomCursor";
@@ -14,13 +15,14 @@ const inter = Inter({
   display: "swap",
 });
 
-// Using Syne as display font (similar weight to Clash Display)
-// Replace with local Clash Display files when available from Fontshare
-const displayFont = Syne({
-  subsets: ["latin"],
+const displayFont = localFont({
+  src: [
+    { path: "../../public/fonts/ClashDisplay-Medium.woff2", weight: "500", style: "normal" },
+    { path: "../../public/fonts/ClashDisplay-Semibold.woff2", weight: "600", style: "normal" },
+    { path: "../../public/fonts/ClashDisplay-Bold.woff2", weight: "700", style: "normal" },
+  ],
   variable: "--font-clash-display",
   display: "swap",
-  weight: ["500", "600", "700", "800"],
 });
 
 export const metadata: Metadata = {
@@ -38,14 +40,14 @@ export const metadata: Metadata = {
     "software a medida",
     "consultoría tecnológica",
   ],
-  metadataBase: new URL("https://agilizesoluciones.com"),
+  metadataBase: new URL("https://agilizesoluciones.uk"),
   openGraph: {
     title: "Agilize Soluciones | Tecnología que impulsa tu negocio",
     description:
       "E-commerce Inteligente y Sistemas ERP. Soluciones tecnológicas premium para empresas que buscan escalar.",
     type: "website",
     locale: "es_AR",
-    url: "https://agilizesoluciones.com",
+    url: "https://agilizesoluciones.uk",
     siteName: "Agilize Soluciones",
     images: [
       {
@@ -66,10 +68,13 @@ export const metadata: Metadata = {
   manifest: "/manifest.json",
   icons: {
     icon: [
+      { url: "/icons/favicon.svg", type: "image/svg+xml" },
+      { url: "/icons/favicon-32.png", sizes: "32x32", type: "image/png" },
       { url: "/icons/icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icons/icon-512.png", sizes: "512x512", type: "image/png" },
     ],
     apple: [
-      { url: "/icons/icon-192.png" },
+      { url: "/icons/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
     ],
   },
   robots: {

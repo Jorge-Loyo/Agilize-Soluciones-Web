@@ -111,7 +111,7 @@ export async function POST(request: NextRequest) {
     // Send notification email to owner
     const RESEND_API_KEY = process.env.RESEND_API_KEY;
     const NOTIFICATION_EMAIL =
-      process.env.NOTIFICATION_EMAIL || "contacto@agilizesoluciones.com";
+      process.env.NOTIFICATION_EMAIL || "contacto@agilizesoluciones.uk";
 
     if (RESEND_API_KEY) {
       // Notification to you
@@ -122,7 +122,7 @@ export async function POST(request: NextRequest) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          from: "Agilize Web <leads@agilizesoluciones.com>",
+          from: "Agilize Web <leads@agilizesoluciones.uk>",
           to: [NOTIFICATION_EMAIL],
           subject: `🟡 Nuevo Lead: ${name} - ${typeLabel}`,
           html: `
@@ -173,7 +173,7 @@ export async function POST(request: NextRequest) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          from: "Agilize Soluciones <hola@agilizesoluciones.com>",
+          from: "Agilize Soluciones <hola@agilizesoluciones.uk>",
           to: [email],
           subject: "¡Recibimos tu solicitud! - Agilize Soluciones",
           html: `
@@ -187,7 +187,7 @@ export async function POST(request: NextRequest) {
                 <li>Roadmap estimado de implementación</li>
                 <li>Presupuesto orientativo sin compromiso</li>
               </ul>
-              <p>Mientras tanto, podés ver nuestro <a href="https://agilizesoluciones.com/#portafolio" style="color: #d4af37;">portafolio</a> para conocer más sobre nuestro trabajo.</p>
+              <p>Mientras tanto, podés ver nuestro <a href="https://agilizesoluciones.uk/#portafolio" style="color: #d4af37;">portafolio</a> para conocer más sobre nuestro trabajo.</p>
               <br>
               <p style="color: #666;">— Jorge Loyo<br>Agilize Soluciones</p>
             </div>
