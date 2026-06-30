@@ -6,7 +6,7 @@
 set -e
 
 APP_NAME="agilize-web"
-APP_DIR="/home/deploy/agilize-soluciones-web/frontend"
+APP_DIR="$HOME/Agilize-Soluciones-Web"
 
 cd "$APP_DIR"
 

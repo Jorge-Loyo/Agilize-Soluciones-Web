@@ -111,7 +111,7 @@ export async function POST(request: NextRequest) {
     // Send notification email to owner
     const RESEND_API_KEY = process.env.RESEND_API_KEY;
     const NOTIFICATION_EMAIL =
-      process.env.NOTIFICATION_EMAIL || "contacto@agilizesoluciones.uk";
+      process.env.NOTIFICATION_EMAIL || "agilizesoluciones@gmail.com";
 
     if (RESEND_API_KEY) {
       // Notification to you

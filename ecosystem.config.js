@@ -7,7 +7,7 @@ module.exports = {
     {
       name: "agilize-web",
       script: ".next/standalone/server.js",
-      cwd: "/home/deploy/agilize-soluciones-web/frontend",
+      cwd: "/home/agilize/Agilize-Soluciones-Web",
       env_production: {
         NODE_ENV: "production",
         PORT: 3000,
