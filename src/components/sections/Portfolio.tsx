@@ -129,7 +129,6 @@ export default function Portfolio() {
         cards.forEach((card, i) => {
           const segment = () => getScrollAmount() / cards.length;
 
-          // Fade in: from start of card segment to center
           gsap.fromTo(
             card,
             { opacity: 0.3, scale: 0.92 },
@@ -147,7 +146,6 @@ export default function Portfolio() {
             }
           );
 
-          // Fade out: from center to end of card segment
           gsap.fromTo(
             card,
             { opacity: 1, scale: 1 },
@@ -164,6 +162,13 @@ export default function Portfolio() {
               },
             }
           );
+
+          // Hover: force full brightness
+          const el = card as HTMLElement;
+          const onEnter = () => gsap.to(el, { opacity: 1, scale: 1, duration: 0.3, overwrite: "auto" });
+          const onLeave = () => ScrollTrigger.refresh();
+          el.addEventListener("mouseenter", onEnter);
+          el.addEventListener("mouseleave", onLeave);
         });
       });
 
