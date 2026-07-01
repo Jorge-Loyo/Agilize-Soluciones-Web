@@ -86,6 +86,16 @@ export default function Footer() {
                   agilizesoluciones@gmail.com
                 </a>
               </li>
+              <li>
+                <a
+                  href="https://wa.me/5491161682555"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-accent transition-colors"
+                >
+                  +54 9 11 6168-2555
+                </a>
+              </li>
             </ul>
           </div>
         </div>
