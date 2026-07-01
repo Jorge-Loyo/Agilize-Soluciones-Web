@@ -124,51 +124,37 @@ export default function Portfolio() {
           );
         });
 
-        // Each card highlights when centered, dims when leaving
-        const cards = track.querySelectorAll(".portfolio-card");
-        cards.forEach((card, i) => {
-          const segment = () => getScrollAmount() / cards.length;
+        // Cards illuminate based on proximity to viewport center + hover
+        const cards = track.querySelectorAll(".portfolio-card") as NodeListOf<HTMLElement>;
+        const hovered = new Set<HTMLElement>();
 
-          gsap.fromTo(
-            card,
-            { opacity: 0.3, scale: 0.92 },
-            {
-              opacity: 1,
-              scale: 1,
-              ease: "none",
-              scrollTrigger: {
-                trigger: sectionRef.current,
-                start: () => `top+=${Math.max(0, i * segment() - segment() * 0.3)} top`,
-                end: () => `top+=${i * segment() + segment() * 0.4} top`,
-                scrub: 1,
-                invalidateOnRefresh: true,
-              },
-            }
-          );
+        ScrollTrigger.create({
+          trigger: sectionRef.current,
+          start: "top top",
+          end: () => `+=${getScrollAmount()}`,
+          invalidateOnRefresh: true,
+          onUpdate: () => {
+            const viewCenter = window.innerWidth / 2;
+            cards.forEach((card) => {
+              if (hovered.has(card)) return;
+              const rect = card.getBoundingClientRect();
+              const cardCenter = rect.left + rect.width / 2;
+              const dist = Math.abs(cardCenter - viewCenter) / (window.innerWidth * 0.6);
+              const opacity = gsap.utils.clamp(0.3, 1, 1 - dist);
+              const scale = gsap.utils.clamp(0.92, 1, 1 - dist * 0.1);
+              gsap.set(card, { opacity, scale });
+            });
+          },
+        });
 
-          gsap.fromTo(
-            card,
-            { opacity: 1, scale: 1 },
-            {
-              opacity: 0.3,
-              scale: 0.92,
-              ease: "none",
-              scrollTrigger: {
-                trigger: sectionRef.current,
-                start: () => `top+=${i * segment() + segment() * 0.6} top`,
-                end: () => `top+=${(i + 1) * segment() + segment() * 0.3} top`,
-                scrub: 1,
-                invalidateOnRefresh: true,
-              },
-            }
-          );
-
-          // Hover: force full brightness
-          const el = card as HTMLElement;
-          const onEnter = () => gsap.to(el, { opacity: 1, scale: 1, duration: 0.3, overwrite: "auto" });
-          const onLeave = () => ScrollTrigger.refresh();
-          el.addEventListener("mouseenter", onEnter);
-          el.addEventListener("mouseleave", onLeave);
+        cards.forEach((card) => {
+          card.addEventListener("mouseenter", () => {
+            hovered.add(card);
+            gsap.to(card, { opacity: 1, scale: 1, duration: 0.3 });
+          });
+          card.addEventListener("mouseleave", () => {
+            hovered.delete(card);
+          });
         });
       });
 
