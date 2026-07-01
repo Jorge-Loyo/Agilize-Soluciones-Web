@@ -101,11 +101,13 @@ Lo que ya está construido y compilando:
 - [x] Verificar pesos: Medium (500), Semibold (600), Bold (700)
 
 ### 2.2 Imágenes y Mockups
-- [ ] Crear mockups de Agilize Gestión (capturas del dashboard en dispositivos)
-- [ ] Crear mockups de Casa Dulce Oriente (tienda en mobile/desktop)
-- [ ] Exportar en formato `.webp` con calidad 80-85%
-- [ ] Crear versiones responsive (640w, 1024w, 1920w)
-- [ ] Implementar `next/image` con sizes y priority donde corresponda
+- [x] Crear mockups de Agilize Gestión (capturas del dashboard en dispositivos)
+- [x] Crear mockups de Casa Dulce Oriente (tienda en mobile/desktop)
+- [x] Crear mockups de Infodets (home + consulta IA)
+- [x] Exportar en formato `.webp` con calidad 80-85%
+- [x] Crear versiones responsive (640w, 1024w, 1920w)
+- [x] Implementar `next/image` con sizes y priority donde corresponda
+- [x] CSS device frames (laptop + phone) para presentación premium
 
 ### 2.3 Favicon y Branding
 - [x] Diseñar/exportar favicon (SVG + PNG 32/192/512 + apple-touch-icon + maskable)
@@ -187,13 +189,13 @@ Lo que ya está construido y compilando:
 - [x] Structured Data (JSON-LD): Organization + LocalBusiness
 - [x] Sitemap dinámico (`app/sitemap.ts`)
 - [x] Robots.txt (`app/robots.ts`)
-- [ ] Canonical URLs (se configura con el dominio definitivo)
+- [x] Canonical URL: `agilizesoluciones.uk` (redirect 301 www → apex en Cloudflare)
 
 ### 4.2 Performance SEO
 - [ ] Verificar Core Web Vitals: LCP < 2.5s, FID < 100ms, CLS < 0.1
 - [x] Preload de fuentes críticas (next/font con display:swap)
 - [x] Verificar que el contenido principal es renderizado en servidor (SSR/SSG — page.tsx es static)
-- [ ] Configurar compresión gzip/brotli en el reverse proxy del túnel (Cloudflare/Nginx)
+- [x] Configurar compresión Brotli + Early Hints + Speed Brain en Cloudflare
 
 ### 4.3 Analytics
 - [x] Integrar Google Analytics 4 (componente Analytics con Script afterInteractive)
@@ -209,11 +211,11 @@ Lo que ya está construido y compilando:
 > **Duración estimada:** 1-2 sesiones  
 
 ### 5.1 Resend Configuración
-- [ ] Crear cuenta en Resend + verificar dominio
-- [ ] Configurar DNS (SPF, DKIM, DMARC)
-- [ ] Obtener API key y configurar en `.env.local` y `.env.production` en la VM
-- [ ] Testear envío de email de notificación (a ti)
-- [ ] Testear envío de email de confirmación (al prospecto)
+- [x] Crear cuenta en Resend + verificar dominio
+- [x] Configurar DNS (SPF, DKIM, DMARC)
+- [x] Obtener API key y configurar en `.env.local` en la VM
+- [x] Testear envío de email de notificación (a ti)
+- [x] Testear envío de email de confirmación (al prospecto)
 
 ### 5.2 Validación y Seguridad
 - [x] Rate limiting en API route (máx 5 requests/minuto por IP)
@@ -283,43 +285,43 @@ Lo que ya está construido y compilando:
 ### 7.1 Preparación de Deploy
 - [x] Verificar `.gitignore` (no subir `.env.local`, `.env.production`, `.next/`, `node_modules/`)
 - [x] Dominio actualizado a `agilizesoluciones.uk` en todo el código
-- [ ] Crear repositorio en GitHub (público o privado)
-- [ ] Push inicial con todo el código
+- [x] Crear repositorio en GitHub
+- [x] Push inicial con todo el código
 
 ### 7.2 Configuración de la VM
 - [x] Script `setup-vm.sh` creado (instala Node.js 20, PM2, cloudflared, firewall)
-- [ ] Instalar Node.js (v20 LTS) en la VM
-- [ ] Clonar repositorio en la VM
-- [ ] Instalar dependencias (`npm ci --omit=dev`)
-- [ ] Crear `.env.local` con variables reales (RESEND_API_KEY, NOTIFICATION_EMAIL)
-- [ ] Build de producción: `npm run build`
-- [ ] Iniciar servidor: via PM2 con ecosystem.config.js
+- [x] Instalar Node.js (v20 LTS) en la VM
+- [x] Clonar repositorio en la VM
+- [x] Instalar dependencias
+- [x] Crear `.env.local` con variables reales (RESEND_API_KEY, NOTIFICATION_EMAIL)
+- [x] Build de producción: `npm run build`
+- [x] Iniciar servidor: via PM2 con ecosystem.config.js
 
 ### 7.3 Process Manager (Mantener vivo el servicio)
 - [x] `ecosystem.config.js` configurado (restart policy, logs, graceful shutdown)
 - [x] Script `deploy.sh` creado (pull + build + copy static + restart PM2)
-- [ ] Instalar PM2: `npm install -g pm2`
-- [ ] Configurar: `pm2 start ecosystem.config.js --env production`
-- [ ] Auto-restart en crash: `pm2 save && pm2 startup`
-- [ ] Verificar logs: `pm2 logs agilize-web`
+- [x] Instalar PM2: `npm install -g pm2`
+- [x] Configurar: `pm2 start ecosystem.config.js --env production`
+- [x] Auto-restart en crash: `pm2 save && pm2 startup`
+- [x] Verificar logs: `pm2 logs agilize-web`
 
 ### 7.4 Túnel y Dominio
 - [x] Script `setup-tunnel.sh` creado (login + create tunnel + DNS + systemd)
-- [ ] Instalar Cloudflare Tunnel (`cloudflared`)
-- [ ] Configurar túnel apuntando a `localhost:3000`
-- [ ] Vincular túnel con dominio agilizesoluciones.uk
-- [ ] SSL automático vía Cloudflare (certificado gestionado)
-- [ ] Verificar redirects (www → apex) en Cloudflare DNS
-- [ ] Configurar compresión Brotli en Cloudflare Dashboard
+- [x] Instalar Cloudflare Tunnel (`cloudflared`)
+- [x] Configurar túnel apuntando a `localhost:3000`
+- [x] Vincular túnel con dominio agilizesoluciones.uk
+- [x] SSL automático vía Cloudflare (Full strict)
+- [x] Redirect 301 www → apex configurado
+- [x] Compresión Brotli + Early Hints + HTTP/3 activado
 
 ### 7.5 Seguridad y Hardening
 - [x] Headers de seguridad: X-Frame-Options, CSP, HSTS, Permissions-Policy (en next.config.ts)
 - [x] Firewall en VM configurado en setup-vm.sh (solo SSH, puerto 3000 NO expuesto)
-- [ ] Rate limiting a nivel de Cloudflare (proteger DDoS gratuito)
+- [ ] Rate limiting a nivel de Cloudflare (Bot Fight Mode)
 - [ ] Monitorear uptime (UptimeRobot / Hetrix gratuito)
 
 ### 7.6 Post-Launch
-- [ ] Verificar emails funcionan en producción
+- [x] Verificar emails funcionan en producción
 - [ ] Submit sitemap a Google Search Console
 - [ ] Verificar OG tags con [opengraph.xyz](https://www.opengraph.xyz/)
 - [ ] Primer test de formulario real en producción
