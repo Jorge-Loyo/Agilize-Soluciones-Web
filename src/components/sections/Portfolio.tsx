@@ -15,7 +15,7 @@ const PROJECTS = [
     category: "Sistema ERP",
     description:
       "Panel administrativo integral para gestión de proyectos, clientes y servicios. Control total de la operación desde un único dashboard.",
-    tech: ["Next.js", "FastAPI", "PostgreSQL", "Tailwind CSS"],
+    tech: ["Python", "PySide6", "PostgreSQL", "SQLAlchemy"],
     color: "#d4af37",
     images: {
       desktop: "/images/portfolio/agilize-dark-1920w.webp",
@@ -28,7 +28,7 @@ const PROJECTS = [
     category: "E-commerce",
     description:
       "Tienda online completa con catálogo dinámico, carrito inteligente y sistema de gestión de pedidos integrado con logística.",
-    tech: ["React", "Node.js", "MongoDB", "Stripe"],
+    tech: ["React", "TypeScript", "FastAPI", "PostgreSQL"],
     color: "#f5a623",
     images: {
       desktop: "/images/portfolio/casa-dulce-home-1920w.webp",
@@ -41,7 +41,7 @@ const PROJECTS = [
     category: "IA · RAG",
     description:
       "Plataforma web con IA (RAG) que responde consultas ciudadanas basándose en documentación oficial, con motor de mejora continua que detecta vacíos de información.",
-    tech: ["Next.js", "FastAPI", "Python", "Docker"],
+    tech: ["Next.js", "FastAPI", "Qdrant", "Gemini AI"],
     color: "#ffffff",
     images: {
       desktop: "/images/portfolio/infodets-home-1920w.webp",
