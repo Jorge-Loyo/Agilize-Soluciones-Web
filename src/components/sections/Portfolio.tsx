@@ -124,20 +124,41 @@ export default function Portfolio() {
           );
         });
 
+        // Each card highlights when centered, dims when leaving
         const cards = track.querySelectorAll(".portfolio-card");
         cards.forEach((card, i) => {
+          const segment = () => getScrollAmount() / cards.length;
+
+          // Fade in: from start of card segment to center
           gsap.fromTo(
             card,
-            { opacity: 0.3, scale: 0.9, y: 40 },
+            { opacity: 0.3, scale: 0.92 },
             {
               opacity: 1,
               scale: 1,
-              y: 0,
               ease: "none",
               scrollTrigger: {
                 trigger: sectionRef.current,
-                start: () => `top+=${i * (getScrollAmount() / cards.length)} top`,
-                end: () => `top+=${(i + 0.5) * (getScrollAmount() / cards.length)} top`,
+                start: () => `top+=${Math.max(0, i * segment() - segment() * 0.3)} top`,
+                end: () => `top+=${i * segment() + segment() * 0.4} top`,
+                scrub: 1,
+                invalidateOnRefresh: true,
+              },
+            }
+          );
+
+          // Fade out: from center to end of card segment
+          gsap.fromTo(
+            card,
+            { opacity: 1, scale: 1 },
+            {
+              opacity: 0.3,
+              scale: 0.92,
+              ease: "none",
+              scrollTrigger: {
+                trigger: sectionRef.current,
+                start: () => `top+=${i * segment() + segment() * 0.6} top`,
+                end: () => `top+=${(i + 1) * segment() + segment() * 0.3} top`,
                 scrub: 1,
                 invalidateOnRefresh: true,
               },
