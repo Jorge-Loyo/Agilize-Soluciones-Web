@@ -134,6 +134,9 @@ export default function Process() {
 
   return (
     <section ref={sectionRef} id="proceso" className="relative py-32 px-6">
+      {/* Connecting line from previous section */}
+      <div className="absolute left-[28px] md:left-1/2 top-0 h-32 w-px bg-gradient-to-b from-transparent to-white/5 -translate-x-1/2" />
+
       <div className="max-w-5xl mx-auto">
         {/* Title */}
         <div className="process-title text-center mb-24 opacity-0">

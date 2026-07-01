@@ -89,7 +89,7 @@ export default function Solutions() {
         );
       });
 
-      // Tech pills stagger
+      // Tech pills stagger + subtle float on scroll
       gsap.fromTo(
         ".tech-pill",
         { opacity: 0, y: 20, scale: 0.9 },
@@ -108,6 +108,19 @@ export default function Solutions() {
           },
         }
       );
+
+      // Parallax float effect on pills when scrolling past
+      gsap.to(".tech-pills-container", {
+        y: -15,
+        ease: "none",
+        scrollTrigger: {
+          trigger: ".tech-pills-container",
+          start: "top 80%",
+          end: "bottom 20%",
+          scrub: 1,
+          invalidateOnRefresh: true,
+        },
+      });
     },
     sectionRef,
     []
@@ -203,7 +216,7 @@ export default function Solutions() {
                   {solution.features.map((feature) => (
                     <li
                       key={feature}
-                      className="flex items-center gap-3 text-sm text-foreground/70"
+                      className="flex items-center gap-3 text-sm text-foreground/80"
                     >
                       <span className="w-1.5 h-1.5 rounded-full bg-accent shrink-0" />
                       {feature}
@@ -239,10 +252,11 @@ export default function Solutions() {
           </p>
           <div className="flex flex-wrap justify-center gap-3">
             {["Automatización", "APIs REST", "Infraestructura Cloud", "Testing & QA", "Analítica Avanzada", "Integraciones"].map(
-              (tech) => (
+              (tech, i) => (
                 <span
                   key={tech}
                   className="tech-pill px-4 py-2 rounded-full bg-surface border border-white/5 text-foreground-muted text-xs font-medium hover:border-accent/30 hover:text-accent transition-all duration-200 opacity-0"
+                  style={{ transitionDelay: `${i * 50}ms` }}
                 >
                   {tech}
                 </span>
