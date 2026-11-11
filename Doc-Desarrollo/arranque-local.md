@@ -130,6 +130,7 @@ El sitio se despliega solo en Vercel: cada `git push` a `main` genera un deploy 
 - **Repo:** `Jorge-Loyo/Agilize-Soluciones-Web` (rama `main`)
 - **Root Directory en Vercel:** `frontend`
 - **Variables de entorno:** se configuran en Vercel → Settings → Environment Variables (`RESEND_API_KEY`, `NOTIFICATION_EMAIL`, `NEXT_PUBLIC_GA_ID`, `NEXT_PUBLIC_DOMAIN`). `.env.local` no se sube a git.
+- **Dominio y DNS:** `agilizesoluciones.uk` está registrado en Cloudflare, que gestiona el DNS. Los registros que apuntan a Vercel van en modo **DNS only** (nube gris). No dejar registros del antiguo túnel (`*.cfargotunnel.com`).
 - **Logs (incluye los `[LEAD]`):** Vercel → proyecto → Logs
 - **Rollback:** Deployments → deploy anterior → Instant Rollback
 
