@@ -6,6 +6,7 @@
 - **npm** v10+
 
 Verificar:
+
 ```bash
 node -v   # v20.x.x
 npm -v    # 10.x.x
@@ -32,6 +33,7 @@ npm run dev
 Abre en el navegador: **http://localhost:3000**
 
 Si el puerto 3000 está ocupado, usar otro:
+
 ```bash
 npm run dev -- --port 3001
 ```
@@ -43,11 +45,13 @@ npm run dev -- --port 3001
 El proyecto funciona sin variables de entorno (formulario se envía pero no manda emails).
 
 Para habilitar emails, crear `.env.local`:
+
 ```bash
 cp .env.example .env.local
 ```
 
 Editar `.env.local` con tus valores:
+
 ```env
 # Resend (obtener en resend.com)
 RESEND_API_KEY=re_tu_api_key
@@ -61,12 +65,12 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX
 
 ## Comandos útiles
 
-| Comando | Qué hace |
-|---------|----------|
-| `npm run dev` | Servidor de desarrollo (hot reload) |
-| `npm run build` | Build de producción |
-| `npm start` | Inicia el build de producción (requiere `npm run build` antes) |
-| `npm run lint` | Ejecuta ESLint |
+| Comando         | Qué hace                                                       |
+| --------------- | -------------------------------------------------------------- |
+| `npm run dev`   | Servidor de desarrollo (hot reload)                            |
+| `npm run build` | Build de producción                                            |
+| `npm start`     | Inicia el build de producción (requiere `npm run build` antes) |
+| `npm run lint`  | Ejecuta ESLint                                                 |
 
 ---
 
@@ -114,10 +118,22 @@ frontend/
 │   ├── images/       → Mockups de proyectos (.webp)
 │   └── icons/        → PWA icons
 ├── .env.local        → Variables de entorno (no se sube a git)
-├── .env.example      → Plantilla de variables
-├── ecosystem.config.js → Config PM2 para producción
-└── deploy.sh         → Script de deploy para la VM
+└── .env.example      → Plantilla de variables
 ```
+
+---
+
+## Deploy (Vercel)
+
+El sitio se despliega solo en Vercel: cada `git push` a `main` genera un deploy de producción.
+
+- **Repo:** `Jorge-Loyo/Agilize-Soluciones-Web` (rama `main`)
+- **Root Directory en Vercel:** `frontend`
+- **Variables de entorno:** se configuran en Vercel → Settings → Environment Variables (`RESEND_API_KEY`, `NOTIFICATION_EMAIL`, `NEXT_PUBLIC_GA_ID`, `NEXT_PUBLIC_DOMAIN`). `.env.local` no se sube a git.
+- **Logs (incluye los `[LEAD]`):** Vercel → proyecto → Logs
+- **Rollback:** Deployments → deploy anterior → Instant Rollback
+
+Antes de subir, conviene verificar que el build pase en local con `npm run build`.
 
 ---
 

@@ -34,11 +34,8 @@ yarn-error.log*
 .env*
 !.env.example
 
-# logs (PM2)
-/logs/
-
-# VM setup scripts (keep in repo but don't need in .next build)
-# setup-vm.sh and setup-tunnel.sh are deployment utilities
+# vercel
+.vercel
 
 # typescript
 *.tsbuildinfo

@@ -3,7 +3,7 @@
 > **Proyecto:** Landing Page Premium de Captación  
 > **Stack:** Next.js 16 + GSAP + Three.js + Lenis + Tailwind v4 + Resend  
 > **Directorio:** `C:\Desarrollo\Agilize-Soluciones-Web\frontend\`  
-> **Deploy:** VM propia + Túnel (Cloudflare Tunnel / ngrok) → Dominio custom  
+> **Deploy:** Vercel (auto-deploy desde GitHub, Root Directory `frontend`) → Dominio custom  
 
 ---
 
@@ -213,7 +213,7 @@ Lo que ya está construido y compilando:
 ### 5.1 Resend Configuración
 - [x] Crear cuenta en Resend + verificar dominio
 - [x] Configurar DNS (SPF, DKIM, DMARC)
-- [x] Obtener API key y configurar en `.env.local` en la VM
+- [x] Obtener API key y configurar en Vercel (Environment Variables)
 - [x] Testear envío de email de notificación (a ti)
 - [x] Testear envío de email de confirmación (al prospecto)
 
@@ -224,7 +224,7 @@ Lo que ya está construido y compilando:
 - [x] Validación server-side con zod
 
 ### 5.3 Monitoreo de Leads
-- [x] Log de leads enviados (stdout para PM2 logs)
+- [x] Log de leads enviados (stdout, visible en Vercel → Logs)
 - [ ] Alerta en Slack/Discord cuando llega un lead (webhook opcional)
 - [ ] Dashboard básico de leads (futuro: conectar con Agilize Gestión)
 
@@ -278,45 +278,29 @@ Lo que ya está construido y compilando:
 
 ---
 
-## FASE 7 — Deploy en VM y Lanzamiento
-> **Objetivo:** Sitio en producción en tu VM, expuesto al mundo vía túnel + dominio propio  
+## FASE 7 — Deploy en Vercel y Lanzamiento
+> **Objetivo:** Sitio en producción en Vercel con dominio propio  
 > **Duración estimada:** 1-2 sesiones  
 
 ### 7.1 Preparación de Deploy
-- [x] Verificar `.gitignore` (no subir `.env.local`, `.env.production`, `.next/`, `node_modules/`)
+- [x] Verificar `.gitignore` (no subir `.env.local`, `.env.production`, `.next/`, `node_modules/`, `.vercel`)
 - [x] Dominio actualizado a `agilizesoluciones.uk` en todo el código
 - [x] Crear repositorio en GitHub
 - [x] Push inicial con todo el código
 
-### 7.2 Configuración de la VM
-- [x] Script `setup-vm.sh` creado (instala Node.js 20, PM2, cloudflared, firewall)
-- [x] Instalar Node.js (v20 LTS) en la VM
-- [x] Clonar repositorio en la VM
-- [x] Instalar dependencias
-- [x] Crear `.env.local` con variables reales (RESEND_API_KEY, NOTIFICATION_EMAIL)
-- [x] Build de producción: `npm run build`
-- [x] Iniciar servidor: via PM2 con ecosystem.config.js
+### 7.2 Configuración en Vercel
+- [x] Proyecto `agilize-soluciones-web` conectado al repo de GitHub (rama `main`)
+- [x] Root Directory = `frontend`, Framework Preset = Next.js
+- [x] Variables de entorno configuradas (RESEND_API_KEY, NOTIFICATION_EMAIL)
+- [x] Auto-deploy en cada push a `main`
 
-### 7.3 Process Manager (Mantener vivo el servicio)
-- [x] `ecosystem.config.js` configurado (restart policy, logs, graceful shutdown)
-- [x] Script `deploy.sh` creado (pull + build + copy static + restart PM2)
-- [x] Instalar PM2: `npm install -g pm2`
-- [x] Configurar: `pm2 start ecosystem.config.js --env production`
-- [x] Auto-restart en crash: `pm2 save && pm2 startup`
-- [x] Verificar logs: `pm2 logs agilize-web`
-
-### 7.4 Túnel y Dominio
-- [x] Script `setup-tunnel.sh` creado (login + create tunnel + DNS + systemd)
-- [x] Instalar Cloudflare Tunnel (`cloudflared`)
-- [x] Configurar túnel apuntando a `localhost:3000`
-- [x] Vincular túnel con dominio agilizesoluciones.uk
-- [x] SSL automático vía Cloudflare (Full strict)
-- [x] Redirect 301 www → apex configurado
-- [x] Compresión Brotli + Early Hints + HTTP/3 activado
+### 7.3 Dominio
+- [x] Dominio `agilizesoluciones.uk` y `www` asignados al proyecto en Vercel
+- [x] SSL automático de Vercel
+- [x] Migración desde la VM + túnel completada (la VM ya no existe)
 
 ### 7.5 Seguridad y Hardening
 - [x] Headers de seguridad: X-Frame-Options, CSP, HSTS, Permissions-Policy (en next.config.ts)
-- [x] Firewall en VM configurado en setup-vm.sh (solo SSH, puerto 3000 NO expuesto)
 - [ ] Rate limiting a nivel de Cloudflare (Bot Fight Mode)
 - [ ] Monitorear uptime (UptimeRobot / Hetrix gratuito)
 
@@ -332,9 +316,8 @@ Lo que ya está construido y compilando:
 - [ ] Conectar leads con Agilize Gestión vía API interna
 - [ ] Implementar blog (MDX + Next.js) para contenido SEO
 - [ ] A/B testing de CTAs y propuesta de valor
-- [ ] CI/CD: GitHub Actions → SSH deploy automático a la VM en cada push a main
 
-**Criterio de completitud:** Sitio live en dominio propio vía túnel, PM2 manteniendo el proceso, SSL activo, formulario procesando leads, uptime monitoreado.
+**Criterio de completitud:** Sitio live en dominio propio en Vercel, SSL activo, formulario procesando leads, uptime monitoreado.
 
 ---
 
@@ -348,7 +331,7 @@ Lo que ya está construido y compilando:
 | 4 | SEO y Meta | 1 |
 | 5 | Backend Leads + Resiliencia localStorage | 1-2 |
 | 6 | Testing y QA | 1 |
-| 7 | Deploy VM + Túnel + Dominio | 1-2 |
+| 7 | Deploy Vercel + Dominio | 1-2 |
 | **Total** | | **10-13 sesiones** |
 
 ---
@@ -374,9 +357,8 @@ Referencia rápida de hooks y utilidades que se crearán en Fase 1:
 | `src/hooks/useGlobalRAF.ts` | Loop unificado de requestAnimationFrame (Lenis + Three.js) |
 | `src/components/ui/CustomCursor.tsx` | Cursor con física Lerp + estados |
 | `src/lib/leadRetry.ts` | Sistema de reintento con localStorage (Fase 5) |
-| `ecosystem.config.js` | Configuración de PM2 para producción en la VM (Fase 7) |
 
 ---
 
 *Documento creado: Junio 2025*  
-*Última actualización: Junio 2025 — Agregados puntos críticos 1.6, 1.7, 2.5, 3.5, 5.4 | Fase 7 reescrita para deploy en VM + Túnel (sin Vercel)*
+*Última actualización: Junio 2025 — Agregados puntos críticos 1.6, 1.7, 2.5, 3.5, 5.4 | Fase 7 actualizada: deploy en Vercel (la VM fue retirada)*

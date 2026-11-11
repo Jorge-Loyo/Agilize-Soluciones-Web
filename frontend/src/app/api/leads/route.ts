@@ -261,7 +261,7 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    // Log the lead (stdout for PM2 logs)
+    // Log the lead (stdout, visible en Vercel → Logs)
     console.log(
       `[LEAD] ${new Date().toISOString()} | ${name} | ${email} | ${typeLabel} | IP: ${ip}`
     );
